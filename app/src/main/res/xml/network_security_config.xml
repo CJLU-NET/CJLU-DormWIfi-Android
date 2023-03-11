@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config> //默认配置：允许明文通信
+    <base-config cleartextTrafficPermitted="true" />
+    <domain-config>
+        <domain includeSubdomains="true">portal1.cjlu.edu.cn</domain>
+        <domain includeSubdomains="true">120.199.39.54</domain>
+        <trust-anchors>
+            <certificates src="user"/>
+        </trust-anchors>
+    </domain-config>
+</network-security-config>

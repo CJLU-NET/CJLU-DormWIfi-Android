@@ -37,9 +37,11 @@ public class HttpClient {
             }
 
             conn.setRequestMethod("GET");
-            conn.setReadTimeout(30000);
+            conn.setReadTimeout(10000);
             conn.setRequestProperty("x-requested-with", "XMLHttpRequest");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty("Upgrade-Insecure-Requests", "1");
+            conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 12; FoskyOS; CJLU-DormWifi-Android) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/76.0.3809.89 Mobile Safari/537.36 T7/11.20 SP-engine/2.16.0");
             header.forEach(conn::setRequestProperty);
 
             conn.setDoInput(true);
@@ -50,8 +52,8 @@ public class HttpClient {
                 result.append(line);
             }
 
-            Log.add("Url:" + url);
-            Log.add("Res:" + result);
+            /*Log.add("Url:" + url);
+            Log.add("Res:" + result);*/
         } catch (Exception e) {
             Log.add("Error:" + e.getMessage());
             e.printStackTrace();
@@ -76,9 +78,11 @@ public class HttpClient {
             }
 
             conn.setRequestMethod("POST");
-            conn.setReadTimeout(30000);
+            conn.setReadTimeout(10000);
             conn.setRequestProperty("x-requested-with", "XMLHttpRequest");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty("Upgrade-Insecure-Requests", "1");
+            conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Linux; Android 12; FoskyOS; CJLU-DormWifi-Android) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/76.0.3809.89 Mobile Safari/537.36 T7/11.20 SP-engine/2.16.0");
             header.forEach(conn::setRequestProperty);
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -94,9 +98,9 @@ public class HttpClient {
                 result.append(line);
             }
 
-            Log.add("Url:" + url);
+            /*Log.add("Url:" + url);
             Log.add("Param:" + param);
-            Log.add("Res:" + result);
+            Log.add("Res:" + result);*/
             // System.out.println(result);
         } catch (Exception e) {
             Log.add("Error:" + e.getMessage());

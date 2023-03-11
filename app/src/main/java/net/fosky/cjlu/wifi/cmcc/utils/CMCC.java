@@ -34,24 +34,29 @@ public class CMCC {
             }
         }
 
-        // Log.add(user_ip + "|" + ac_name + "|" + ac_ip);
+        Log.add(user_ip + "|" + ac_name + "|" + ac_ip);
 
         String pwdRSA;
 
         try {
             pwdRSA = URLEncoder.encode(RSA.encrypt(pass), "UTF-8");
+            Log.add(pwdRSA);
         } catch (Exception e) {
             return false;
         }
 
         String para_post = "wlanAcName=" + ac_name + "&wlanAcIp=" + ac_ip + "&wlanUserIp=" + user_ip + "&ssid=&userName=" + phone + "&_userPwd=%E8%BE%93%E5%85%A5%E5%9B%BA%E5%AE%9A%E5%AF%86%E7%A0%81%2F%E4%B8%B4%E6%97%B6%E5%AF%86%E7%A0%81&userPwd=" + pwdRSA + "&verifyCode=&verifyHidden=&issaveinfo=&passType=0";
+        para_post = "";
+        Log.add(para_post);
 
         Map<String, String> header = new HashMap<>();
         header.put("Referer", login_page);
 
-        String url = base_uri + "portalLogin.wlan?" + System.currentTimeMillis();
+        String url = base_uri + "portalLogin.wlan?"/* + System.currentTimeMillis()*/;
 
         String html = HttpClient.Post(url, para_post, header);
+
+        Log.add(html);
 
         String pattern = "<input type=\"hidden\" name=\"(.*?)\" id=\".*\" value=\"(.*?)\"/>";
 
@@ -65,23 +70,37 @@ public class CMCC {
             para.append("&").append(matcher.group(1)).append("=").append(matcher.group(2));
         }
 
-        para_post = String.valueOf(para).substring(1);
+        return false;
+
+        /*para_post = String.valueOf(para).substring(1);
 
         url = base_uri + "portalLoginRedirect.wlan";
 
         html = HttpClient.Post(url, para_post, header);
-
-        return html.contains("<em class=\"per_tel\">" + phone + "</em>");
+        Log.add(html);
+        return html.contains("<em class=\"per_tel\">" + phone + "</em>");*/
 
     }
     public static boolean Login(String phone, String pass) {
         String login_page = Wifi.getPortalPage();
-
+        // Log.add(login_page);
         if (login_page.equals("")) return false;
 
         if (login_page.contains("portal1.cjlu.edu.cn")) {
+            /*String[] split = login_page.substring(login_page.indexOf("?") + 1).split("&");
+            String ip = "";
+
+            for (String str : split) {
+                if (str.startsWith("wlanuserip=")) {
+                    ip = str.split("=")[1];
+                    break;
+                }
+            }
+            login_page = "https://120.199.39.54:7090/zmcc/indexForce.wlan?wlanacname=0059.0571.571.00&wlanuserip=" + ip + "&wlanacip=120.199.40.105";
+            Log.add(login_page);*/
             return false;
         }
+        Log.add(login_page);
         return LoginUrl(login_page, phone, pass);
 
     }

@@ -78,9 +78,19 @@ public class MainActivity extends AppCompatActivity {
                 button.setText("登录");
                 Toast.makeText(MainActivity.this,"当前Wifi无需认证", Toast.LENGTH_SHORT).show();
             } else if (!Intranet.Login(n_user, n_pass)) {
-                Toast.makeText(MainActivity.this,"登录失败", Toast.LENGTH_SHORT).show();
-                button.setEnabled(true);
-                button.setText("登录");
+                if (!CMCC.Login(c_user, c_pass)) {
+                    Toast.makeText(MainActivity.this,"登录失败", Toast.LENGTH_SHORT).show();
+                    button.setEnabled(true);
+                    button.setText("登录");
+                } else {
+                    Toast.makeText(MainActivity.this,"登录成功，APP稍后自动退出", Toast.LENGTH_SHORT).show();
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        finish();
+                        System.exit(0);
+                    }, 3000);
+                }
             } else if (!CMCC.Login(c_user, c_pass)) {
                 // Toast.makeText(MainActivity.this, Wifi.getPortalPage(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(MainActivity.this,"内网登录成功，但移动WLAN尝试登录失败，请等待一会后重试登录", Toast.LENGTH_SHORT).show();

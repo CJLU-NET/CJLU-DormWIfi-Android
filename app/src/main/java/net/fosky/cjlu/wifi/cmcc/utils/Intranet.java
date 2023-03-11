@@ -27,10 +27,10 @@ public class Intranet {
 
         String url = "https://portal1.cjlu.edu.cn:801/eportal/?" + para_get;
 
-        String para_post = "DDDDD=__" + user + "&upass=" + pass + "&R1=0&R2=&R6=1&para=00&0MKKey=123456";
+        String para_post = "DDDDD=" + user + "&upass=" + pass + "&R1=0&R2=&R6=1&para=00&0MKKey=123456";
 
         Map<String, String> header = new HashMap<>();
-        header.put("Cookie", "Cookie: wlanacname=1234567890; wlanacip=null");
+        // header.put("Cookie", "Cookie: wlanacname=1234567890; wlanacip=null");
 
         String res = HttpClient.Post(url, para_post, header);
 

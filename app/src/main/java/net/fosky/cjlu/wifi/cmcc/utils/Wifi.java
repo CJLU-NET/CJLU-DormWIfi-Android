@@ -33,22 +33,6 @@ public class Wifi {
         return false;
     }
 
-    public static String testPage() {
-        try {
-            URL url = new URL("http://connectivitycheck.platform.hicloud.com/generate_204");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setInstanceFollowRedirects(false);
-            conn.setConnectTimeout(2000);
-            conn.setReadTimeout(2000);
-            conn.setUseCaches(false);
-            // conn.getInputStream();
-            return String.valueOf(conn.getResponseCode());
-            // return conn.getHeaderField("Location");
-        } catch (IOException e) {
-            //   e.printStackTrace();
-            return "";
-        }
-    }
     public static boolean isPortal() {
         String url = "http://connectivitycheck.platform.hicloud.com/generate_204";
         try {
@@ -78,7 +62,7 @@ public class Wifi {
             conn.setInstanceFollowRedirects(false);
             conn.setConnectTimeout(500);
             conn.setReadTimeout(500);
-
+            // return conn.getHeaderField("Location");
             if (conn.getResponseCode() == 302 || conn.getResponseCode() == 301) {
                 return conn.getHeaderField("Location");
             }
